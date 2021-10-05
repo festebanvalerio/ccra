@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="SignEder">
+  <ds:SignedInfo>
+    <ds:SignatureMethod/>
+  </ds:SignedInfo>
+</ds:Signature>

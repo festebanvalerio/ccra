@@ -1,0 +1,506 @@
+.select2 {
+	width: 100% !important;
+}
+
+textarea {
+	overflow: scroll;
+	resize: none;
+}
+
+a:hover {
+	color: #FFF;
+}
+
+a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+body {
+	font-family: sans-serif;
+	font-size: 12px;
+}
+
+#div1 {
+	overflow: scroll;
+	height: 20%;
+	width: auto;
+}
+
+#div1 table {
+	width: auto;
+	font-size: 12px;
+}
+
+#div2 {
+	overflow: scroll;
+	max-height: 500px;
+	max-width: auto;
+	position: relative;
+}
+
+#div2 table {
+	width: auto;
+	font-size: 12px;
+}
+
+thead th {
+	position: -webkit-sticky; /* for Safari */
+	position: sticky;
+	top: 0;
+	color: #FFF;
+	background-color: #ff8000;
+	border-right: 1px solid #ffffff;
+}
+
+thead th:first-child {
+	left: 0;
+	z-index: 1;
+}
+
+tbody th {
+	position: -webkit-sticky; /* for Safari */
+	position: sticky;
+	left: 0;
+	border-right: 1px solid #CCC;
+}
+
+.content-input {
+	position: relative;
+	padding: 0px 2px 0px 25px;
+	/* Damos un padding de 60px para posicionar el elemento <i> en este espacio*/
+	display: block;
+}
+
+/* Estas reglas se aplicarán a todos las elementos i después de cualquier input*/
+.content-input input+i {
+	background: #f0f0f0;
+	border: 2px solid rgba(0, 0, 0, 0.2);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+/* Estas reglas se aplicarán a todos los i despues de un input de tipo radio*/
+.content-input input[type=radio]+i {
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+}
+
+.content-input input[type=radio]+i:before {
+	content: '';
+	display: block;
+	height: 8px;
+	width: 8px;
+	background: red;
+	border-radius: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 4px;
+	left: 4px;
+	background: #ff8000;
+	transition: all 0.25s ease;
+	/* Todas las propiedades | tiempo | tipo movimiento */
+	transform: scale(0) /* Lo reducimos a 0*/;
+	opacity: 0; /* Lo ocultamos*/
+}
+
+.content-input input[type=radio]:checked+i:before {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.content-input:hover input[type=radio]:not (:checked ) +i {
+	background: #B1E8CD;
+}
+
+.content-input input, .content-select select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+.content-input input {
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+}
+
+.content-select select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+/* Eliminamos la fecha que por defecto aparece en el desplegable */
+.content-select select::-ms-expand {
+	display: none;
+}
+
+.content-select {
+	max-width: 250px;
+	position: relative;
+}
+
+.content-select select {
+	display: inline-block;
+	width: 100%;
+	cursor: pointer;
+	padding: 7px 10px;
+	height: 34px;
+	outline: 0;
+	border: 0;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #7b7b7b;
+	font-size: 1em;
+	color: #999;
+	font-family: 'Quicksand', sans-serif;
+	border: 2px solid rgba(0, 0, 0, 0.2);
+	border-radius: 12px;
+	position: relative;
+	transition: all 0.25s ease;
+}
+
+.content-select select:hover {
+	background: #B1E8CD;
+}
+
+.content-select i {
+	position: absolute;
+	right: 20px;
+	top: calc(50% - 13px);
+	width: 16px;
+	height: 16px;
+	display: block;
+	border-left: 4px solid #2AC176;
+	border-bottom: 4px solid #2AC176;
+	transform: rotate(-45deg); /* Giramos el cuadrado */
+	transition: all 0.25s ease;
+}
+
+.content-select:hover i {
+	margin-top: 3px;
+}
+
+table.dataTable thead tr {
+	background-color: #3c8dbc;
+	color: white;
+}
+
+.table-wrapper-br, .table-wrapper-br-l, .table-wrapper-br-r {
+	overflow: auto;
+	display: inline-block;
+	width: 99%;
+}
+
+.table-wrapper-br-l {
+	max-height: 25vh;
+	min-height: 25vh;
+}
+
+.table-wrapper-br-r {
+	max-height: 88vh;
+	min-height: 88vh;
+}
+
+.all-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.all-width {
+	width: 100%;
+}
+
+h5, .checkbox-inline {
+	font-weight: bold;
+}
+
+.bordered-space {
+	padding: 10px 0px;
+	border-bottom: 1px solid #DDD;
+}
+
+.spaced-top {
+	margin-top: 10px;
+}
+
+.footer-total {
+	background-color: #ff8000;
+	color: #FFF;
+	height: 10vh;
+}
+
+.border-web-br {
+	border: 1px solid #ff8000;
+}
+
+.spacer-vertical {
+	padding: 10px 0px;
+}
+
+.bg-sof-dark {
+	background-color: #EAEBEC;
+}
+
+.bg-white-br {
+	background-color: #FFF;
+}
+
+.spacer-padding-full-10 {
+	padding: 10px;
+}
+
+.space-button-inp {
+	margin: 0px 5px 0px 0px;
+}
+
+.no-border-left {
+	border-left: 0px !important;
+}
+
+.no-padding-bottom {
+	padding-bottom: 0px !important;
+}
+
+.content-input {
+	margin-left: -15px;
+	width: 25%;
+}
+
+.max-height {
+	max-height: 90vh;
+	min-height: 90vh;
+}
+
+.max-height-footer {
+	max-height: 10vh;
+	min-height: 10vh;
+}
+
+.height-45vh {
+	min-height: auto;
+	max-height: 45vh;
+}
+
+.height-20vh {
+	min-height: auto;
+	max-height: 20vh;
+}
+
+@media ( min-width : 320px) {
+	#btnGuardar1 span, #btnSalir1 span, #btnLimpiar1, #btnGuardar2 span,
+		#btnSalir2 span, #btnLimpiar2 span {
+		font-size: 15px !important;
+	}
+	.height-45vh, .height-20vh, .table-wrapper-br-l, .table-wrapper-br-r {
+		max-height: fit-content;
+	}
+	.max-height {
+		max-height: fit-content;
+	}
+	.border-web-br {
+		border: 0px;
+	}
+}
+
+/* iphone X , XS, 11 Pro */
+@media only screen and (min-device-width: 375px) and (max-device-height:
+	812px) and (-webkit-device-pixel-ratio: 3) {
+	body {
+		overflow: auto !important;
+	}
+	.hidden-xs {
+		display: none;
+	}
+	.col-xs-12 {
+		width: 100%;
+	}
+}
+
+/* iphone X , XS, 11 Pro landscape */
+@media only screen and (min-device-width: 375px) and (max-device-height:
+	812px) and (-webkit-device-pixel-ratio: 3) and (orientation:landscape)
+	{
+	.max-height-footer {
+		min-height: 20vh;
+		max-height: 20vh;
+	}
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media ( min-width : 576px) {
+	.table-wrapper-br-left {
+		min-height: 23vh;
+		max-height: 23vh;
+	}
+	.table-wrapper-br-right {
+		min-height: 91vh;
+		max-height: 91vh;
+	}
+	#btnGuardar1 span, #btnSalir1, #btnLimpiar1, #btnGuardar2 span,
+		#btnSalir2 span, #btnLimpiar2 span {
+		font-size: 25px !important;
+	}
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width : 768px) {
+	.table-wrapper-br-left {
+		min-height: 50vh;
+	}
+	.table-wrapper-br-right {
+		min-height: 91vh;
+		max-height: 91vh;
+	}
+	#btnGuardar1 span, #btnSalir1 span, #btnLimpiar1, #btnGuardar2 span,
+		#btnSalir2 span, #btnLimpiar2 span {
+		font-size: 15px !important;
+	}
+	.hidden-tb {
+		display: none;
+	}
+	.table-wrapper-br-l {
+		min-height: 25vh;
+		max-height: 25vh;
+	}
+	.table-wrapper-br-r {
+		min-height: 90vh;
+		max-height: 90vh;
+	}
+}
+
+@media (device-width: 100vw) and (device-height: 100vh) {
+	.table-wrapper-br-l {
+    	min-height: 38vh;
+    	max-height: 38vh;
+	}
+}
+            
+/** iPad Landscape**/
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) and
+	(-webkit-min-device-pixel-ratio: 2) {
+	.table-wrapper-br-l {
+		min-height: 26vh !important;
+		max-height: 26vh !important;
+	}
+	body {
+		overflow: hidden;
+	}
+	.width-70 {
+		width: 100%;
+	}
+}
+
+/** iPad - Portrait**/
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : portrait) and
+	(-webkit-min-device-pixel-ratio: 2) {
+	.table-wrapper-br-l {
+		min-height: 22vh;
+		max-height: 22vh;
+	}
+	.no-footer-desktop {
+		display: none;
+	}
+	body {
+		overflow: hidden;
+	}
+	.height-45vh {
+		min-height: 45vh;
+		max-height: 45vh;
+	}
+}
+
+/* iPad Pro portrait*/
+@media only screen and (min-device-width : 1024px) and (max-device-width
+	: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation :
+	portrait) {
+	.height-45vh {
+		min-height: 20vh;
+		max-height: 20vh;
+	}
+	.table-wrapper-br-l {
+		min-height: 56vh;
+		max-height: 56vh;
+	}
+	.hidden-lg, hidden-md {
+		display: block !important;
+	}
+	.ip-pro-med {
+		width: 33.3%;
+		margin: 2.5vh 0px;
+	}
+}
+
+/* iPad Pro landscape*/
+@media only screen and (max-device-width : 1366px) and
+	(-webkit-min-device-pixel-ratio: 2) and (orientation : landscape) {
+	.table-wrapper-br-l {
+		min-height: 50vh;
+		max-height: 50vh;
+	}
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media ( min-width : 992px) {
+	.table-wrapper-br-left {
+		min-height: 21.7vh;
+		max-height: 21.7vh;
+	}
+}
+
+/*Extra large devices (large desktops, 1200px and up HD)*/
+@media ( min-width : 1200px) {
+	.table-wrapper-br-left {
+		min-height: 26vh;
+		max-height: 26vh;
+	}
+	.table-wrapper-br-right {
+		min-height: 85.7vh;
+		max-height: 85.7vh;
+	}
+	.hidden-md-2 {
+		display: none;
+	}
+	body {
+		overflow: hidden;
+	}
+}
+
+/*Extra large devices (large desktops, 1200px and up FHD to UP)*/
+@media ( min-width : 1920px) {
+	.table-wrapper-br-l {
+		min-height: 45vh;
+		max-height: 45vh;
+	}
+	.table-wrapper-br-right {
+		min-height: 90.3vh;
+		max-height: 90.3vh;
+	}
+}
+
+.login-logo, .register-logo {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+
+.login-box, .register-box {
+    width: 360px;
+    margin: 7% auto;
+}
+
+.login-box-body, .register-box-body {
+    background: #fff;
+    padding: 20px;
+    color: #444;
+    border-top: 0;
+    color: #666;
+}
