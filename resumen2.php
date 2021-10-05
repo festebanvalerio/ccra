@@ -211,78 +211,97 @@ while ($generarBoleta) {
             } else {
                 $estado = false;
                 $msj = $estado_envsun = "";
-                
-                $r = run(datatoarray($header, $detalle, $empresa, "SummaryDocuments"), $ruta . "cperepositorio/send/", $ruta . "cperepositorio/cdr/", "", "SummaryDocuments", true);
-                echo "PROCESO ENVIO BOLETA - FAULTCODE : " . $r["faultcode"] . "\n";
-                if ($r["faultcode"] == "0") {
-                    $estado = true;
-                    $estado_envsun = 1;
-                } else {
-                    $msj = "Error: " . $r["faultcode"];
-                    $estado_envsun = 0;
-                }
-                echo "PROCESO ENVIO BOLETA - TICKET : " . $r["ticket"] . "\n";
-                if ($r["ticket"] != "" && $estado) {
-                    $objResumenBoleta = new ResumenBoletaData();
-                    $objResumenBoleta->fe_resumenboleta_tic = $r["ticket"];
-                    $objResumenBoleta->fe_resumenboleta_faucod = $r["faultcode"];
-                    $objResumenBoleta->fe_resumenboleta_digval = $r["digvalue"];
-                    $objResumenBoleta->fe_resumenboleta_sigval = $r["signvalue"];
-                    $objResumenBoleta->fe_resumenboleta_val = $r["valid"];
-                    $objResumenBoleta->fe_resumenboleta_fecenvsun = date("Y-m-d H:i:s");
-                    $objResumenBoleta->fe_resumenboleta_estsun = $estado_envsun;
-                    $objResumenBoleta->fe_resumenboleta_id = $idResumenBoleta;
-                    $resultado = $objResumenBoleta->updateSunat();
-                    
-                    echo "PROCESO ENVIO BOLETA - FAUCOD : " . $r["faultcode"] . "\n";
-                    echo "PROCESO ENVIO BOLETA - DIGVAL : " . $r["digvalue"] . "\n";
-                    echo "PROCESO ENVIO BOLETA - SIGVAL : " . $r["signvalue"] . "\n";
-                    echo "PROCESO ENVIO BOLETA - VALID : " . $r["valid"] . "\n";
-                    echo "PROCESO ENVIO BOLETA - ESTADO1 : " . $estado_envsun . "\n";
-                    echo "PROCESO ENVIO BOLETA ACTUALIZADO 1 : " . $resultado[0] . "\n";
-                    
-                    $estado = false;
-                    $msj = $estado_envsun2 = "";
-                    $indicador = true;
-                    
-                    $arr = array(
-                            "usuario_sunat" => $cpe_usuario_sunat,
-                            "clave_sunat" => $cpe_clave_sunat
-                    );
-                    $recorrido = 1;
-                    while ($indicador && $recorrido <= 5) {
-                        $res = send_sunat("none", $r["ticket"], $arr, $ruta . "cperepositorio/cdr/", "getStatus", "");
-                        if ($res == "0") {
-                            $msj = "OK";
-                            $estado_envsun2 = 1;
-                            $estado = true;
-                            $indicador = false;
-                        } elseif ($res == "98") {
-                            $msj = "EN PROCESO.";
-                            $estado_envsun2 = 1;                                
-                        } elseif ($res == "99") {
-                            $msj = "PROCESO CON ERRORES.";
-                            $estado_envsun2 = 1;
-                        } else {
-                            $msj = "CODE: " . $res;
-                            $estado_envsun2 = 0;
-                        }
-                        echo "PROCESO ENVIO BOLETA - INTENTO : " . $recorrido++ . "\n";
-                        echo "PROCESO ENVIO BOLETA - RES : " . $res . "\n";
-                        echo "PROCESO ENVIO BOLETA - MENSAJE : " . $msj . "\n";
-                        echo "PROCESO ENVIO BOLETA - ESTADO2 : " . $estado_envsun2 . "\n";
+
+                $indicadorEnvioSunat = true;
+                $recorridoEnvioSunat = 1;
+                while ($indicadorEnvioSunat && $recorridoEnvioSunat <= 5) {                
+                    $r = run(datatoarray($header, $detalle, $empresa, "SummaryDocuments"), $ruta . "cperepositorio/send/", $ruta . "cperepositorio/cdr/", "", "SummaryDocuments", true);
+                    echo "PROCESO ENVIO BOLETA - FAULTCODE : " . $r["faultcode"] . "\n";
+                    if ($r["faultcode"] == "0") {
+                        $estado = true;
+                        $estado_envsun = 1;
+                        $indicadorEnvioSunat = false;
+                    } else {
+                        $msj = "Error: " . $r["faultcode"];
+                        $estado_envsun = 0;
                     }
-                    
-                    $objResumenBoleta = new ResumenBoletaData();
-                    $objResumenBoleta->fe_resumenboleta_faucod2 = $res;
-                    $objResumenBoleta->fe_resumenboleta_fecenvsun2 = date("Y-m-d H:i:s");
-                    $objResumenBoleta->fe_resumenboleta_estsun2 = $estado_envsun2;
-                    $objResumenBoleta->fe_resumenboleta_id = $idResumenBoleta;
-                    $resultado = $objResumenBoleta->updateSunat2();
-                    
-                    echo "PROCESO ENVIO BOLETA ACTUALIZADO 2 : " . $resultado[0] . "\n";
-                    
-                    if (!$estado) {
+                    echo "PROCESO ENVIO BOLETA - INTENTO : " . $recorridoEnvioSunat++ . "\n";
+                    echo "PROCESO ENVIO BOLETA - TICKET : " . $r["ticket"] . "\n";
+                    if ($r["ticket"] != "" && $estado) {
+                        $objResumenBoleta = new ResumenBoletaData();
+                        $objResumenBoleta->fe_resumenboleta_tic = $r["ticket"];
+                        $objResumenBoleta->fe_resumenboleta_faucod = $r["faultcode"];
+                        $objResumenBoleta->fe_resumenboleta_digval = $r["digvalue"];
+                        $objResumenBoleta->fe_resumenboleta_sigval = $r["signvalue"];
+                        $objResumenBoleta->fe_resumenboleta_val = $r["valid"];
+                        $objResumenBoleta->fe_resumenboleta_fecenvsun = date("Y-m-d H:i:s");
+                        $objResumenBoleta->fe_resumenboleta_estsun = $estado_envsun;
+                        $objResumenBoleta->fe_resumenboleta_id = $idResumenBoleta;
+                        $resultado = $objResumenBoleta->updateSunat();
+                        
+                        echo "PROCESO ENVIO BOLETA - FAUCOD : " . $r["faultcode"] . "\n";
+                        echo "PROCESO ENVIO BOLETA - DIGVAL : " . $r["digvalue"] . "\n";
+                        echo "PROCESO ENVIO BOLETA - SIGVAL : " . $r["signvalue"] . "\n";
+                        echo "PROCESO ENVIO BOLETA - VALID : " . $r["valid"] . "\n";
+                        echo "PROCESO ENVIO BOLETA - ESTADO1 : " . $estado_envsun . "\n";
+                        echo "PROCESO ENVIO BOLETA ACTUALIZADO 1 : " . $resultado[0] . "\n";
+                        
+                        $estado = false;
+                        $msj = $estado_envsun2 = "";
+                        $indicador = true;
+                        
+                        $arr = array(
+                                "usuario_sunat" => $cpe_usuario_sunat,
+                                "clave_sunat" => $cpe_clave_sunat
+                        );
+                        $recorrido = 1;
+                        while ($indicador && $recorrido <= 5) {
+                            $res = send_sunat("none", $r["ticket"], $arr, $ruta . "cperepositorio/cdr/", "getStatus", "");
+                            if ($res == "0") {
+                                $msj = "OK";
+                                $estado_envsun2 = 1;
+                                $estado = true;
+                                $indicador = false;
+                            } elseif ($res == "98") {
+                                $msj = "EN PROCESO.";
+                                $estado_envsun2 = 1;                                
+                            } elseif ($res == "99") {
+                                $msj = "PROCESO CON ERRORES.";
+                                $estado_envsun2 = 1;
+                            } else {
+                                $msj = "CODE: " . $res;
+                                $estado_envsun2 = 0;
+                            }
+                            echo "PROCESO ENVIO BOLETA - INTENTO : " . $recorrido++ . "\n";
+                            echo "PROCESO ENVIO BOLETA - RES : " . $res . "\n";
+                            echo "PROCESO ENVIO BOLETA - MENSAJE : " . $msj . "\n";
+                            echo "PROCESO ENVIO BOLETA - ESTADO2 : " . $estado_envsun2 . "\n";
+                        }
+                        
+                        $objResumenBoleta = new ResumenBoletaData();
+                        $objResumenBoleta->fe_resumenboleta_faucod2 = $res;
+                        $objResumenBoleta->fe_resumenboleta_fecenvsun2 = date("Y-m-d H:i:s");
+                        $objResumenBoleta->fe_resumenboleta_estsun2 = $estado_envsun2;
+                        $objResumenBoleta->fe_resumenboleta_id = $idResumenBoleta;
+                        $resultado = $objResumenBoleta->updateSunat2();
+                        
+                        echo "PROCESO ENVIO BOLETA ACTUALIZADO 2 : " . $resultado[0] . "\n";
+                        
+                        if (!$estado) {
+                            $objLog = new LogData();
+                            $objLog->documento = "BOLETA";
+                            $objLog->indicador = $objResumenBoleta->fe_resumenboleta_id;
+                            $objLog->mensaje = $msj;
+                            $objLog->fecha_creacion = date("Y-m-d H:i:s");
+                            $objLog->usuario_creacion = 1;
+                            $resultadoLog = $objLog->add();
+                            if (isset($resultadoLog[1]) && $resultadoLog[1] > 0) {
+                                echo "PROCESO ENVIO BOLETA - CREAR LOG : " . $resultadoLog[1] . "\n";
+                            } else {
+                                echo "PROCESO ENVIO BOLETA - ERROR CREAR LOG\n";
+                            }
+                        }
+                    } else {
                         $objLog = new LogData();
                         $objLog->documento = "BOLETA";
                         $objLog->indicador = $objResumenBoleta->fe_resumenboleta_id;
@@ -295,19 +314,6 @@ while ($generarBoleta) {
                         } else {
                             echo "PROCESO ENVIO BOLETA - ERROR CREAR LOG\n";
                         }
-                    }
-                } else {
-                    $objLog = new LogData();
-                    $objLog->documento = "BOLETA";
-                    $objLog->indicador = $objResumenBoleta->fe_resumenboleta_id;
-                    $objLog->mensaje = $msj;
-                    $objLog->fecha_creacion = date("Y-m-d H:i:s");
-                    $objLog->usuario_creacion = 1;
-                    $resultadoLog = $objLog->add();
-                    if (isset($resultadoLog[1]) && $resultadoLog[1] > 0) {
-                        echo "PROCESO ENVIO BOLETA - CREAR LOG : " . $resultadoLog[1] . "\n";
-                    } else {
-                        echo "PROCESO ENVIO BOLETA - ERROR CREAR LOG\n";
                     }
                 }
             }            
